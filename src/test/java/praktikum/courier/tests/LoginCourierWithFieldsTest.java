@@ -30,8 +30,8 @@ public class LoginCourierWithFieldsTest {
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][]{
                 {null, "dwdawda"},                // Без логина
-                //{"Userdawfawfa4", null},          // Без пароля
-                //{null, null},                     // Без логина и пароля
+                {"Userdawfawfa4", null},          // Без пароля
+                {null, null},                     // Без логина и пароля
                 {"", "dwdawda"},                  // Пустой логин
                 {"Userdawfawfa5", ""},            // Пустой пароль
                 {"", ""},                         // Пустые логин и пароль
