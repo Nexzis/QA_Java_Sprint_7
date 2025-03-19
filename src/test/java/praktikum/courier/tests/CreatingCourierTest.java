@@ -1,5 +1,6 @@
 package praktikum.courier.tests;
 
+import io.qameta.allure.Description;
 import io.qameta.allure.Step;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
@@ -24,14 +25,16 @@ public class CreatingCourierTest {
     }
 
     @Test
-    @DisplayName("Проверка курьер создан, ответ 200 ОК")
+    @DisplayName("Тест создания курьера")
+    @Description("Тест проверяет, что создание курьера прошло успешно и вернулся ответ 200 ОК")
     public void checkCreateCourier() {
         ValidatableResponse createResponse = client.createCourier(courier);
         check.created(createResponse);
     }
 
     @Test
-    @DisplayName("Проверка ошибки при создании существующего курьера")
+    @DisplayName("Тест создания существующего курьера")
+    @Description("Тест проверяет, что создание курьера по данным уже созданного курьера возвращает ошибку 409 и message \"Этот логин уже используется\"")
     public void checkExistedCourier() {
         ValidatableResponse createResponse = client.createCourier(courier);
         ValidatableResponse createResponseAgain = client.createCourier(courier);

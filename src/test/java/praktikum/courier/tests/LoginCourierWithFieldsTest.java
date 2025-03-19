@@ -1,5 +1,6 @@
 package praktikum.courier.tests;
 
+import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
 import org.junit.Test;
@@ -39,7 +40,8 @@ public class LoginCourierWithFieldsTest {
     }
 
     @Test
-    @DisplayName("Проверка, ошибки при незаполненных необходимых полях")
+    @DisplayName("Тест ошибки при логине курьера без заполнения всех необходимых полей")
+    @Description("Проверка, что появляется ошибка 400 и \"Недостаточно данных для входа\", когда при логине курьера не передаются все необходимые поля")
     public void checkFailLoginWithMissedFields() {
         var loginDetails = new LoginDetails(login, password);
         ValidatableResponse loginResponse = client.courierLogin(loginDetails);

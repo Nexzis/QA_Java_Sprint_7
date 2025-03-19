@@ -1,5 +1,6 @@
 package praktikum.courier.tests;
 
+import io.qameta.allure.Description;
 import io.qameta.allure.Step;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
@@ -46,7 +47,8 @@ public class CreatingCourierWithFieldsTest {
     }
 
     @Test
-    @DisplayName("Проверка, что появляется ошибка, когда при создании курьера не передаются все необходимые поля")
+    @DisplayName("Тест ошибки при создании курьера без заполнения всех необходимых полей")
+    @Description("Проверка, что появляется ошибка 400 и \"Недостаточно данных для создания учетной записи\", когда при создании курьера не передаются все необходимые поля")
     public void checkFailCreatingWithMissedFields() {
         courier = new Courier(login, password, firstName);
         ValidatableResponse createResponse = client.createCourier(courier);

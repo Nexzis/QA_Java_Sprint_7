@@ -1,5 +1,6 @@
 package praktikum.orders.tests;
 
+import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
 import org.junit.After;
@@ -37,7 +38,8 @@ public class SetOrderWithDifferentColoursTest {
     }
 
     @Test
-    @DisplayName("Проверка создания заказа с разными вариантами цвета самоката")
+    @DisplayName("Тест создания заказа с разными вариантами цвета самоката")
+    @Description("Тест проверяет, что заказ можно создать с одним, двумя или без цветов и ответ 201 ОК")
     public void checkCreateOrderWithColours() {
         Order order = new Order(color);
         ValidatableResponse orderResponse = OrderClient.createOrder(order);

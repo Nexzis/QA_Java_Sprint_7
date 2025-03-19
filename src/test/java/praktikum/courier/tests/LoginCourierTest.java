@@ -1,5 +1,6 @@
 package praktikum.courier.tests;
 
+import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
 import org.junit.After;
@@ -20,31 +21,24 @@ public class LoginCourierTest {
     @Before
     public void setUp() {
         courier = Courier.random(); // Создание случайного курьера перед каждым тестом
+        ValidatableResponse createResponse = client.createCourier(courier);
     }
 
     @Test
-    @DisplayName("Проверка, что курьер логинится и возвращается id")
+    @DisplayName("Тест логина курьера")
+    @Description("Тест проверяет, что логин курьера прошел успешно и вернулось значение его id")
     public void checkIdWhenLogin() {
-        ValidatableResponse createResponse = client.createCourier(courier);
         var loginDetails = LoginDetails.fromCourier(courier);
         ValidatableResponse loginResponse = client.courierLogin(loginDetails);
 
         courierId = check.loginSuccess(loginResponse);
     }
 
-    @Test
-    @DisplayName("Проверка ошибки, когда логина не существует")
-    public void checkFailWhenLoginNotExist() {
-        var loginDetails = LoginDetails.fromCourier(courier);
-        ValidatableResponse loginResponse = client.courierLogin(loginDetails);
-
-        check.loginFailed(loginResponse);
-    }
 
     @Test
-    @DisplayName("Проверка ошибки, когда логин введен неправильно")
+    @DisplayName("Тест ошибки, когда логин введен неправильно")
+    @Description("Тест проверяет, когда логина введен неправильно возвращается 404 и message \"Учетная запись не найдена\"")
     public void checkFailWhenLoginIncorrect() {
-        ValidatableResponse createResponse = client.createCourier(courier);
         courier.setLogin(courier.getLogin()+"1");
 
         var loginDetails = LoginDetails.fromCourier(courier);
@@ -54,9 +48,9 @@ public class LoginCourierTest {
     }
 
     @Test
-    @DisplayName("Проверка ошибки, когда пароль введен неправильно")
+    @DisplayName("Тест ошибки, когда пароль введен неправильно")
+    @Description("Тест проверяет, когда пароль введен неправильно возвращается 404 и message \"Учетная запись не найдена\"")
     public void checkFailWhenPasswordIncorrect() {
-        ValidatableResponse createResponse = client.createCourier(courier);
         courier.setPassword(courier.getPassword()+"1");
 
         var loginDetails = LoginDetails.fromCourier(courier);
